@@ -19,6 +19,14 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
+gem "devise"       # Authentication
+gem "activeadmin"  # Admin panel
+gem "kaminari"     # Pagination
+gem "carrierwave"  # image uploads (or 'activestorage')
+gem "stripe"       # payment integration
+gem "faker"        # generating test data
+
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
