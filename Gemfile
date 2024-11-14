@@ -25,6 +25,7 @@ gem "kaminari"     # Pagination
 gem "carrierwave"  # image uploads (or 'activestorage')
 gem "stripe"       # payment integration
 gem "faker"        # generating test data
+gem "sassc-rails"
 
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
