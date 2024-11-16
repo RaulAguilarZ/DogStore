@@ -1,0 +1,32 @@
+<!--  Filter  -->
+<div class="search-and-filter">
+  <%= form_with url: products_path, method: :get, local: true do %>
+    <!-- Search Product -->
+    <div class="form-group">
+      <%= label_tag :search, "Search Product", class: 'form-label' %>
+      <%= text_field_tag :search, params[:search], placeholder: "Enter product name", class: 'form-control' %>
+    </div>
+    <!-- Boton  Filter  -->
+    <div class="form-group">
+      <%= submit_tag "Search & Filter", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+<!-- List Product Filter -->
+<h1>Products</h1>
+<% if @products.any? %>
+  <div class="products">
+    <% @products.each do |product| %>
+      <div class="product">
+        <h2><%= product.name %></h2>
+        <p><%= product.description %></p>
+
+      </div>
+    <% end %>
+  </div>
+  <!-- Paginate -->
+  <%= paginate @products %>
+  <% else %>
+    <p>No products match your search criteria.</p>
+<% end %>

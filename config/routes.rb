@@ -16,9 +16,13 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   Rails.application.routes.draw do
+    resources :products, only: [:index]
+    resources :products
     resources :contacts, only: [:new, :create]
     resources :abouts, only: [:index]
-    root 'abouts#index'
+    root 'products#index'
+
+
   end
 
 
