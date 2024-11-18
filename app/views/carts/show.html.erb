@@ -1,0 +1,20 @@
+<h1>Your Cart</h1>
+
+<% if @cart_items.any? %>
+  <ul>
+    <% @cart_items.each do |item| %>
+      <li>
+        <%= item[:product].name %> - <%= item[:quantity] %> x $<%= item[:product].price %>
+        <%= link_to 'Remove', remove_cart_path(id: item[:product].id), method: :delete %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= link_to 'Clear Cart', clear_cart_path, method: :delete %>
+<% else %>
+  <p>Your cart is empty.</p>
+<% end %>
+
+<%= link_to 'Continue Shopping', products_path %>
+
+<%= link_to 'Proceed to Checkout', checkout_path %>

@@ -6,7 +6,7 @@
       <%= label_tag :search, "Search Product", class: 'form-label' %>
       <%= text_field_tag :search, params[:search], placeholder: "Enter product name", class: 'form-control' %>
     </div>
-    <!-- Boton  Filter  -->
+    <!-- Boton Filter -->
     <div class="form-group">
       <%= submit_tag "Search & Filter", class: 'btn btn-primary' %>
     </div>
@@ -15,18 +15,27 @@
 
 <!-- List Product Filter -->
 <h1>Products</h1>
-<% if @products.any? %>
-  <div class="products">
-    <% @products.each do |product| %>
-      <div class="product">
-        <h2><%= product.name %></h2>
-        <p><%= product.description %></p>
+<% if @products.any? %> <!-- Verifica si hay productos -->
+  <% @products.each do |product| %>
+    <div>
+      <h2><%= product.name %></h2>
+      <p><%= product.description %></p>
 
-      </div>
-    <% end %>
-  </div>
+
+      <p>Price: <%= number_to_currency(product.price) %></p>
+      <p>Quantity Available: <%= product.available_quantity %></p>
+      <%= form_with url: add_cart_path(product.id), method: :post do |form| %>
+  <%= hidden_field_tag :product_id, product.id %>
+  <%= number_field_tag :quantity, 1, min: 1, step: 1 %>
+  <%= form.submit 'Add to Cart' %>
+<% end %>
+
+
+    </div>
+  <% end %>
+
   <!-- Paginate -->
   <%= paginate @products %>
-  <% else %>
-    <p>No products match your search criteria.</p>
+<% else %>
+  <p>No products match your search criteria.</p>
 <% end %>
