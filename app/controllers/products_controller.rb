@@ -27,4 +27,19 @@ class ProductsController < ApplicationController
 
   end
 
+    def create
+      @product = Product.new(product_params)
+      if @product.save
+        redirect_to @product, notice: 'Producto creado exitosamente.'
+      else
+        render :new
+      end
+    end
+
+    private
+
+    def product_params
+      params.require(:product).permit(:name, :description, :price, :available_quantity, :category_id, :image)
+    end
+
 end
