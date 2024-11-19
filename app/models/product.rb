@@ -22,6 +22,13 @@ def self.ransackable_associations(auth_object = nil)
   ["category"]
 end
 
+private
 
+  def resize_image
+    return unless image.attached?
+
+    image_variant = image.variant(resize: "300x300>").processed
+    self.image = image_variant
+  end
 
 end

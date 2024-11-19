@@ -27,7 +27,7 @@ if File.exist?(csv_file_path)
         price: row['price'],
         available_quantity: row['available_quantity'],
         category: category,
-        id_category: row['id_category']
+        category_id: row['id_category']
       )
       puts "Update: #{product.name}"
     else
