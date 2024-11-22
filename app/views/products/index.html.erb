@@ -1,4 +1,21 @@
 <h1>Products</h1>
+
+
+
+    <nav>
+      <ul class="navbar">
+        <li><%= link_to 'Products', products_path %></li>
+
+        <li><%= link_to 'Cart', cart_path %></li>
+
+        <li><%= link_to 'Contact', new_contact_path %></li>
+        <li><%= link_to 'About', abouts_path %></li>
+
+        <li><%= link_to 'Home', root_path %></li>
+        <li><%= link_to 'Admin Login', new_admin_user_session_path %></li>
+      </ul>
+    </nav>
+
 <div class="search-and-filter">
   <%= form_with url: products_path, method: :get, local: true do %>
     <!-- Search Product -->
@@ -17,6 +34,15 @@
       <%= submit_tag "Search & Filter", class: 'btn btn-primary' %>
     </div>
 
+    <nav>
+      <ul>
+
+        <li>
+          <%= link_to "Car (#{session[:cart]&.values&.sum || 0})", cart_path %>
+        </li>
+
+      </ul>
+    </nav>
   <% end %>
 </div>
 

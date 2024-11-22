@@ -24,13 +24,14 @@ Rails.application.routes.draw do
 
     #
     resource :cart, only: [:show] do
-      post 'add/:id', to: 'cart#add', as: 'add'
-      delete 'remove/:id', to: 'cart#remove', as: 'remove'
-      delete 'clear', to: 'cart#clear', as: 'clear'
-      get '/cart', to: 'cart#show', as: 'cart'
+      post 'add/:id', to: 'carts#add', as: 'add'
+      delete 'remove/:id', to: 'carts#remove', as: 'remove'
+      delete 'clear', to: 'carts#clear', as: 'clear'
+      put 'update_quantity/:product_id', to: 'carts#update_quantity', as: 'update_quantity'
     end
 
-    # Rutas para checkout
+
+
     #resources :checkout, only: [:show, :create]
 
     # Routes contacts and abouts
