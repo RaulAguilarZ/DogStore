@@ -1,0 +1,18 @@
+
+<h1><%= "Description Product" %></h1>
+<h2><%= @product.name %></h2>
+
+  <div class="product-details">
+
+    <% if @product.image.attached? %>
+      <%= image_tag @product.image, width: 200, height: 200, alt: @product.name %>
+    <% else %>
+      <p><em>No hay imagen disponible</em></p>
+    <% end %>
+
+    <p><strong>Description:</strong> <%= @product.description %></p>
+    <p><strong>Price:</strong> $<%= number_to_currency(@product.price, unit: "") %></p>
+    <p><strong>Category:</strong> <%= @product.category.name if @product.category %></p>
+  </div>
+
+<%= link_to "Back Products", products_path, class: "button" %>

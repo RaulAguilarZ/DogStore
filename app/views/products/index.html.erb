@@ -1,4 +1,4 @@
-<!--  Filter  -->
+<h1>Products</h1>
 <div class="search-and-filter">
   <%= form_with url: products_path, method: :get, local: true do %>
     <!-- Search Product -->
@@ -6,36 +6,49 @@
       <%= label_tag :search, "Search Product", class: 'form-label' %>
       <%= text_field_tag :search, params[:search], placeholder: "Enter product name", class: 'form-control' %>
     </div>
-    <!-- Boton Filter -->
+
+    <!-- Filter by Category -->
+    <div class="form-group">
+      <%= label_tag :category_id, "Filter by category:", class: 'form-label' %>
+      <%= select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name, params[:category_id]), include_blank: "== All Categories ==", class: 'form-select' %>
+    </div>
+
     <div class="form-group">
       <%= submit_tag "Search & Filter", class: 'btn btn-primary' %>
     </div>
+
   <% end %>
 </div>
 
 <!-- List Product Filter -->
-<h1>Products</h1>
-<% if @products.any? %> <!-- Verifica si hay productos -->
+<% if @products.any? %>
   <% @products.each do |product| %>
-    <div>
-      <h2><%= product.name %></h2>
-      <p><%= product.description %></p>
+    <div class="product-item">
+      <h3><%= link_to product.name, product_path(product), class: 'product-name' %></h3>
 
+      <% if product.image.attached? %>
+        <%= image_tag product.image, alt: product.name, width: 200, height: 200, class: 'product-image' %>
+      <% end %>
 
-      <p>Price: <%= number_to_currency(product.price) %></p>
-      <p>Quantity Available: <%= product.available_quantity %></p>
-      <%= form_with url: add_cart_path(product.id), method: :post do |form| %>
-  <%= hidden_field_tag :product_id, product.id %>
-  <%= number_field_tag :quantity, 1, min: 1, step: 1 %>
-  <%= form.submit 'Add to Cart' %>
-<% end %>
+      <p class="product-description"><%= product.description %></p>
+      <p class="product-price">Price: <%= number_to_currency(product.price) %></p>
+      <p class="product-quantity">Quantity Available: <%= product.available_quantity %></p>
 
-
+      <!-- Add to Cart Form -->
+      <%= form_with url: add_cart_path(product.id), method: :post, local: true do %>
+        <%= hidden_field_tag :product_id, product.id %>
+        <div class="quantity-field">
+          <%= number_field_tag :quantity, 1, min: 1, step: 1, class: 'form-control' %>
+          <%= submit_tag 'Add to Cart', class: 'btn btn-success' %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 
   <!-- Paginate -->
-  <%= paginate @products %>
+  <div class="pagination">
+    <%= paginate @products %>
+  </div>
 <% else %>
   <p>No products match your search criteria.</p>
 <% end %>

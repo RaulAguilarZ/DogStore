@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-
   #devise_for :users
   #devise_for :admin_users, ActiveAdmin::Devise.config
 
@@ -20,10 +19,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-    # Rutas para productos, solo se mantiene la acción index
-    resources :products, only: [:index]
+    #Routes Index and Show
+    resources :products, only: [:index, :show]
 
-    # Rutas para el carrito, incluyendo agregar, eliminar y vaciar
+    #
     resource :cart, only: [:show] do
       post 'add/:id', to: 'cart#add', as: 'add'
       delete 'remove/:id', to: 'cart#remove', as: 'remove'
@@ -32,18 +31,12 @@ Rails.application.routes.draw do
     end
 
     # Rutas para checkout
-    resources :checkout, only: [:show, :create]
+    #resources :checkout, only: [:show, :create]
 
-    # Rutas para contacto y acerca de
+    # Routes contacts and abouts
     resources :contacts, only: [:new, :create]
     resources :abouts, only: [:index]
 
-    # Ruta raíz
+    # Ruta Index
     root 'products#index'
-
-
-
   end
-
-
-

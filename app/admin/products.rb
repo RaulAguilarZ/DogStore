@@ -33,7 +33,6 @@ ActiveAdmin.register Product do
       if product.image.attached?
         image_tag product.image.variant(resize_to_fill: [50, 50]).processed
       end
-
     end
     actions
   end
