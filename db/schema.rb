@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_19_002944) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_25_044352) do
   create_table "abouts", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -129,13 +129,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_19_002944) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "customer_id", null: false
+    t.integer "user_id", null: false
     t.datetime "order_date"
     t.string "status"
     t.decimal "total_amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "outputs", force: :cascade do |t|
@@ -183,6 +183,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_19_002944) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username", default: "guest"
+    t.string "address"
+    t.string "province"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -194,6 +197,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_19_002944) do
   add_foreign_key "entries", "suppliers"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
-  add_foreign_key "orders", "customers"
+  add_foreign_key "orders", "customers", column: "user_id"
   add_foreign_key "outputs", "products"
 end

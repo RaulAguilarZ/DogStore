@@ -1,4 +1,19 @@
 <h1>Your Cart</h1>
+ <% if user_signed_in? %>
+    <p>Hello : <%= current_user.email %></p>
+  <% else %>
+    <p>No authenticated user.</p>
+  <% end %>
+
+  <% if @order %>
+    <h3> Order</h3>
+    <ul>
+      <% @order.order_items.each do |item| %>
+        <li><%= item.product.name %> - <%= item.quantity %> - <%= number_to_currency(item.price) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
 <% if @cart_items.empty? %>
   <p>Your cart is empty.</p>
 <% else %>
@@ -13,6 +28,7 @@
         <th>     </th>
       </tr>
     </thead>
+
     <tbody>
       <% total = 0 %>
       <% @cart_items.each do |item| %>
@@ -27,7 +43,7 @@
            <td>
             <%= form_with url: update_quantity_cart_path(product_id: product.id), method: :put do |form| %>
             <%= form.number_field :quantity, value: quantity, min: 1 %>
-            <%= form.submit "Actualizar", class: "button" %>
+            <%= form.submit "Update", class: "button" %>
             <% end %>
           </td>
 
@@ -41,5 +57,6 @@
     </tbody>
   </table>
   <h3>Total: $<%= total %></h3>
-  <%= link_to "Continue shopping ... ", products_path, class: "button" %>
+ <p> <%= button_to 'Generate Order', create_order_cart_path, method: :post, class: 'btn btn-primary' %></p>
 <% end %>
+<%= link_to "Continue shopping ... ", products_path, class: "button" %>

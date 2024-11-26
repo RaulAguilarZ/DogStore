@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+#  devise_for :users, controllers: { sessions: 'users/sessions' }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -28,11 +30,13 @@ Rails.application.routes.draw do
       delete 'remove/:id', to: 'carts#remove', as: 'remove'
       delete 'clear', to: 'carts#clear', as: 'clear'
       put 'update_quantity/:product_id', to: 'carts#update_quantity', as: 'update_quantity'
+      post 'create_order', on: :collection
     end
 
+    resources :orders, only: [:new, :create, :show] do
+    end
 
-
-    #resources :checkout, only: [:show, :create]
+    resources :checkout, only: [:show]
 
     # Routes contacts and abouts
     resources :contacts, only: [:new, :create]

@@ -1,0 +1,42 @@
+<h1>Checkout</h1>
+
+<%= form_for @order do |f| %>
+  <div>
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.label :province %>
+    <%= f.text_field :province %>
+  </div>
+
+  <div>
+    <h2>Productos en tu carrito:</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% current_cart_items.each do |item| %>
+          <tr>
+            <td><%= item.product.name %></td>
+            <td><%= item.quantity %></td>
+            <td><%= item.product.price %></td>
+            <td><%= item.product.price * item.quantity %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <p><strong>Total: </strong><%= calculate_total_price %></p>
+  </div>
+
+  <div>
+    <%= f.submit "Confirmar Pedido" %>
+  </div>
+<% end %>
